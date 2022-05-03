@@ -3,7 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/include"
+                "${workspaceFolder}/include/**"
             ],
             "defines": [
                 "_DEBUG",
@@ -11,7 +11,7 @@
                 "_UNICODE"
             ],
             "intelliSenseMode": "windows-gcc-x64",
-            "compileCommands": ".vscode/compile_commands.json"
+            "compilerPath": "${env:GCC_MINGW_HOME}/bin/gcc.exe"
         }
     ],
     "version": 4

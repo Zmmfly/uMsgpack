@@ -12,9 +12,9 @@ extern "C" {
 typedef enum ump_err
 {
     /* no error */
-    UMP_ERR_OK   = 0,
+    UMP_EOK = 0,
     /* fail */
-    UMP_ERR_FAIL = -200,
+    UMP_FAIL = -200,
     /* arg has null ptr */
     UMP_ERR_NULLPTR,
     /* arg has invalid value */
@@ -76,6 +76,8 @@ typedef struct ump_arg_read
     size_t len;
 }ump_arg_read;
 
+typedef ump_arg_read ump_arg_write;
+
 /**
  * @brief seek dir arg enum
  * 
@@ -95,13 +97,13 @@ typedef enum ump_seek_dir
  * @brief seek arg
  * 
  * @param off offset for dir
- * @param dir seek dir
+ * @param whe seek whence
  * 
  */
 typedef struct ump_arg_seek
 {
     uint64_t off;
-    ump_seek_dir dir;
+    ump_seek_dir whe;
 }ump_arg_seek;
 
 /**

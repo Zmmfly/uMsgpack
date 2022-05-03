@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "Kconfig": "kconfig",
+        "umsgpack_utils.h": "c",
+        "umsgpack_def.h": "c"
+    }
+}
