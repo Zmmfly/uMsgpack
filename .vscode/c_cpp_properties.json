@@ -8,7 +8,8 @@
             "defines": [
                 "_DEBUG",
                 "UNICODE",
-                "_UNICODE"
+                "_UNICODE",
+                "CONFIG_UMSGPACK_DEFAULT_MEMOP"
             ],
             "intelliSenseMode": "windows-gcc-x64",
             "compilerPath": "${env:GCC_MINGW_HOME}/bin/gcc.exe"

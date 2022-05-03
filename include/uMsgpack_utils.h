@@ -7,6 +7,8 @@
 extern "C" {
 #endif // __cplusplus
 
+int ump_check_handle(ump_handle_t hd);
+
 int ump_st_open(ump_handle_t hd);
 int ump_st_done(ump_handle_t hd);
 int ump_st_close(ump_handle_t hd);

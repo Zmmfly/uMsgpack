@@ -55,7 +55,6 @@ typedef struct ump_memop{
     void (*free)(void*);
 }ump_memop;
 typedef ump_memop* ump_memop_t;
-extern ump_memop ump_memop_default;
 
 /**
  * @brief open arg is ctx
