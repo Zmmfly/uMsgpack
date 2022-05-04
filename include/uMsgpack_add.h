@@ -7,7 +7,7 @@
 extern "C" {
 #endif // __cplusplus
 
-int ump_add_pfixint(ump_handle_t hd, int8_t val);
+int ump_add_pfixint(ump_handle_t hd, uint8_t val);
 
 int ump_add_fixmap(ump_handle_t hd, uint8_t val);
 int ump_add_fixarray(ump_handle_t hd, uint8_t val);
