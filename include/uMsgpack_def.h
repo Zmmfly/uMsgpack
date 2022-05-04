@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include "uMsgpack_type.h"
 
 #ifdef __cplusplus
@@ -27,10 +28,12 @@ typedef enum ump_err
     UMP_ERR_UNSUPPORTED,
     /* invalid stream */
     UMP_ERR_INVALID_STREAM,
+    UMP_ERR_INVALID_MEMOP,
     /* type error */
     UMP_ERR_TYPE,
     /* ended */
     UMP_ERR_EOF,
+    UMP_ERR_CLOSE4DECODE,
     /* unknown error */
     UMP_ERR_UNKNOWN,
 }ump_err;
@@ -73,9 +76,12 @@ typedef struct ump_arg_read
 {
     void *ptr;
     size_t len;
+    bool mov;
 }ump_arg_read;
+typedef ump_arg_read* ump_arg_read_t;
 
 typedef ump_arg_read ump_arg_write;
+typedef ump_arg_write* ump_arg_write_t;
 
 /**
  * @brief seek dir arg enum
@@ -101,9 +107,10 @@ typedef enum ump_seek_dir
  */
 typedef struct ump_arg_seek
 {
-    uint64_t off;
+    int64_t off;
     ump_seek_dir whe;
 }ump_arg_seek;
+typedef ump_arg_seek* ump_arg_seek_t;
 
 /**
  * @brief tell arg, relative to the starting position
@@ -134,13 +141,14 @@ typedef void* ump_arg_close;
  * 
  */
 typedef struct ump_stream ump_stream;
-typedef ump_err(*ump_stream_fn_t)(ump_stream* handle, ump_opcode opcode, void* oparg);
+typedef ump_stream* ump_stream_t;
+typedef int(*ump_stream_fn_t)(ump_stream_t handle, ump_opcode opcode, void* oparg);
 typedef struct ump_stream
 {
     void* ctx;
     ump_stream_fn_t fn;
 }ump_stream;
-typedef ump_stream* ump_stream_t;
+// typedef ump_stream* ump_stream_t;
 
 /**
  * @brief ump handle

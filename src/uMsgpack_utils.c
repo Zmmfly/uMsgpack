@@ -71,9 +71,10 @@ int ump_st_close(ump_handle_t hd)
  * @param hd 
  * @param ptr 
  * @param len 
+ * @param move move pos after read
  * @return int 
  */
-int ump_st_read(ump_handle_t hd, void* ptr, size_t len)
+int ump_st_read(ump_handle_t hd, void* ptr, size_t len, bool move)
 {
     ump_arg_read arg;
     int ret = ump_check_handle(hd);
@@ -86,6 +87,7 @@ int ump_st_read(ump_handle_t hd, void* ptr, size_t len)
         }
         arg.ptr = ptr;
         arg.len = len;
+        arg.mov = move;
         ret = hd->stream->fn(hd->stream, UMP_OP_RD, &arg);
     }while(0);
     return ret;
@@ -97,9 +99,10 @@ int ump_st_read(ump_handle_t hd, void* ptr, size_t len)
  * @param hd 
  * @param ptr 
  * @param len 
+ * @param move move pos after write
  * @return int 
  */
-int ump_st_write(ump_handle_t hd, void* ptr, size_t len)
+int ump_st_write(ump_handle_t hd, void* ptr, size_t len, bool move)
 {
     ump_arg_write arg;
     int ret = ump_check_handle(hd);
@@ -112,6 +115,7 @@ int ump_st_write(ump_handle_t hd, void* ptr, size_t len)
         }
         arg.ptr = ptr;
         arg.len = len;
+        arg.mov = move;
         ret = hd->stream->fn(hd->stream, UMP_OP_WR, &arg);
     }while(0);
     return ret;

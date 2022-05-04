@@ -20,7 +20,6 @@ typedef struct ump_stream_mem
 {
     ump_stream stream;
     void* buf;
-    /* zero for decode */
     uint64_t spc;
     uint64_t len;
     uint64_t pos;
