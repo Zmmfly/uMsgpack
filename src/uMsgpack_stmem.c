@@ -116,7 +116,7 @@ int ump_st_mem_destroy(ump_stream_mem_t st)
             err = UMP_ERR_INVALID_STREAM;
             break;
         }
-        if (st->spc != 0) {
+        if (st->spc != 0 && st->buf) {
             st->memop->free(st->buf);
         }
         st->memop->free(st);

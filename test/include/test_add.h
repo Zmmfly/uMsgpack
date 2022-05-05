@@ -9,6 +9,7 @@
 
 #define tadd_dec(n) int t_add_fn_##n(std::string &msg);
 #define tadd_def(n) int t_add_fn_##n(std::string &msg)
+#define tadd_nm(n) t_add_fn_##n
 
 #define test(n) tadd_dec(n)
 #include "test_def"

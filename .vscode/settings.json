@@ -42,6 +42,7 @@
         "streambuf": "cpp",
         "typeinfo": "cpp",
         "umsgpack_add.h": "c",
-        "umsgpack.h": "c"
+        "umsgpack.h": "c",
+        "test_def": "cpp"
     }
 }

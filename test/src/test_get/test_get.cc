@@ -1,16 +1,16 @@
-#include "test_add.h"
+#include "test_get.h"
 
-#define test(n) {.name = #n, .fn = tadd_nm(n)},
-utils::test::unit_item t_add_units[] = {
+#define test(n) {.name = #n, .fn = tget_nm(n)},
+utils::test::unit_item t_get_units[] = {
 #include "test_def"
 };
 #undef test
 
-#define test(n) __attribute__((weak)) tadd_def(n) {return false;}
+#define test(n) __attribute__((weak)) tget_def(n) {msg = "not implement";return false;}
 #include "test_def"
 #undef test
 
-ump_handle_t t_add_create_ump()
+ump_handle_t t_get_create_ump(void *ptr, size_t size)
 {
     bool ret = false;
     ump_handle_t     hd = nullptr;
@@ -19,19 +19,19 @@ ump_handle_t t_add_create_ump()
         hd = new ump_handle;
         if (hd == nullptr) break;
 
-        st = ump_st_mem_create(128, &ump_memop_default);
+        st = ump_st_mem_create_with(ptr, size, &ump_memop_default);
         if (st == nullptr) break;
 
         ump_init(hd, &st->stream);
         ret = true;
     }while(0);
     if (!ret && hd) {
-        t_add_destroy_ump(hd);
+        t_get_destroy_ump(hd);
     }
     return hd;
 }
 
-void t_add_destroy_ump(ump_handle_t hd)
+void t_get_destroy_ump(ump_handle_t hd)
 {
     if (hd == nullptr) return;
     if (hd->stream) ump_st_mem_destroy((ump_stream_mem_t)hd->stream);
