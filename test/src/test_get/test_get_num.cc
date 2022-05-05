@@ -135,3 +135,373 @@ tget_def(nfixint)
     }while(0);
     return ret;
 }
+
+tget_def(u8)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xcc, 0xff
+    };
+    uint8_t val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_u8) {
+            msg = "ump next type error";
+            break;
+        }
+
+        err = ump_get_u8(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (val != 0xff) {
+            msg = "ump u8 value error";
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    return ret;
+}
+
+tget_def(u16)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xcd, 0xaa, 0xbb
+    };
+    uint16_t val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_u16) {
+            msg = "ump next type error";
+            break;
+        }
+
+        err = ump_get_u16(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (val != 0xaabb) {
+            msg = "ump value error";
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    return ret;
+}
+
+tget_def(u32)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xce, 0xaa, 0xbb, 0xcc, 0xdd
+    };
+    uint32_t val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_u32) {
+            msg = "ump next type error";
+            break;
+        }
+
+        err = ump_get_u32(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (val != 0xaabbccdd) {
+            msg = "ump value error";
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    return ret;
+}
+
+tget_def(u64)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xcf, 0x11, 0x22, 0x33, 0x44, 0xaa, 0xbb, 0xcc, 0xdd
+    };
+    uint64_t val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_u64) {
+            msg = "ump next type error";
+            break;
+        }
+
+        err = ump_get_u64(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (val != 0x11223344aabbccdd) {
+            msg = "ump value error";
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    return ret;
+}
+
+tget_def(i8)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xd0, 0x81
+    };
+    int8_t val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_i8) {
+            msg = "ump next type error";
+            break;
+        }
+
+        err = ump_get_i8(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (val != -127) {
+            msg = "ump value error: ";
+            msg += std::to_string(val);
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    return ret;
+}
+
+tget_def(i16)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xd1, 0xaa, 0xbb
+    };
+    int16_t val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_i16) {
+            msg = "ump next type error";
+            break;
+        }
+
+        err = ump_get_i16(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (val != -21829) {
+            msg = "ump value error";
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    return ret;
+}
+
+tget_def(i32)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xd2, 0xaa, 0xbb, 0xcc, 0xdd
+    };
+    int32_t val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_i32) {
+            msg = "ump next type error";
+            break;
+        }
+
+        err = ump_get_i32(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (val != -1430532899) {
+            msg = "ump value error";
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    return ret;
+}
+
+tget_def(i64)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xd3, 0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88
+    };
+    int64_t val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_i64) {
+            msg = "ump next type error";
+            break;
+        }
+
+        err = ump_get_i64(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (val != -4822678189205112) {
+            msg = "ump value error: ";
+            msg += std::to_string(val);
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    return ret;
+}

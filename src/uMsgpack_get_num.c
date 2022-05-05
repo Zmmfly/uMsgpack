@@ -382,12 +382,12 @@ int ump_get_i64(ump_handle_t hd, int64_t* val)
             break;
         }
 
-        if ( type != ump_type_i32 ) {
+        if ( type != ump_type_i64 ) {
             err = UMP_ERR_TYPE;
             break;
         }
 
-        if (ump_st_read(hd, 1, be, 4, false) != UMP_EOK) {
+        if (ump_st_read(hd, 1, be, 8, false) != UMP_EOK) {
             err = UMP_ERR_READ;
             break;
         }
