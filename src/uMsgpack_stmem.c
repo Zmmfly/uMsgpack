@@ -5,10 +5,10 @@
 #ifdef CONFIG_UMSGPACK_DEFAULT_MEMOP
 #include <stdlib.h>
 ump_memop ump_memop_default = {
-    .malloc = malloc,
-    .calloc = calloc,
-    .free   = free,
-    .calloc = calloc
+    .malloc  = malloc,
+    .calloc  = calloc,
+    .realloc = realloc,
+    .free    = free
 };
 #endif
 
@@ -36,7 +36,7 @@ ump_stream_mem_t ump_st_mem_create(uint64_t len, ump_memop_t memop)
 
         // init mem stream
         mem_st->stream.fn = ump_st_mem_fn;
-        mem_st->buf = memop->malloc(len);
+        mem_st->buf = memop->calloc(1, len);
         if (mem_st->buf == NULL) break;
         mem_st->spc = len;
         mem_st->memop = memop;
@@ -63,7 +63,7 @@ ump_stream_mem_t ump_st_mem_create(uint64_t len, ump_memop_t memop)
  * @param memop 
  * @return ump_stream_mem_t 
  */
-ump_stream_mem_t ump_st_mem_create_with(const void* buf, uint64_t len, ump_memop_t memop)
+ump_stream_mem_t ump_st_mem_create_with(void* buf, uint64_t len, ump_memop_t memop)
 {
     bool             valid  = false;
     ump_stream_mem_t mem_st = NULL;
@@ -116,8 +116,8 @@ int ump_st_mem_destroy(ump_stream_mem_t st)
             err = UMP_ERR_INVALID_STREAM;
             break;
         }
-        if (st->spc == 0) {
-            st->memop->free(st->spc);
+        if (st->spc != 0) {
+            st->memop->free(st->buf);
         }
         st->memop->free(st);
         err = UMP_EOK;
@@ -187,7 +187,7 @@ int ump_st_mem_read(ump_stream_mem_t hd, void *arg)
     ump_err err = UMP_FAIL;
     ump_arg_read_t rdarg = (ump_arg_read_t) arg;
     do{
-        if (hd = NULL) {
+        if (hd == NULL) {
             err = UMP_ERR_NULLPTR;
             break;
         }
@@ -199,13 +199,14 @@ int ump_st_mem_read(ump_stream_mem_t hd, void *arg)
             err = UMP_ERR_INVALID_ARG;
             break;
         }
-        if (hd->len - hd->pos < rdarg->len) {
+        if (hd->len - (hd->pos + rdarg->off) < rdarg->len) {
             err = UMP_ERR_RANGEOVF;
             break;
         }
-        memcpy(rdarg->ptr, hd->buf+hd->pos, rdarg->len);
+        memcpy(rdarg->ptr, hd->buf + hd->pos + rdarg->off, rdarg->len);
         if (rdarg->mov) {
             hd->pos += rdarg->len;
+            hd->pos += rdarg->off;
         }
         err = UMP_EOK;
     }while(0);
@@ -217,7 +218,7 @@ int ump_st_mem_write(ump_stream_mem_t hd, void *arg)
     ump_err err = UMP_FAIL;
     ump_arg_write_t wrarg = (ump_arg_write_t) arg;
     do{
-        if (hd = NULL) {
+        if (hd == NULL) {
             err = UMP_ERR_NULLPTR;
             break;
         }
@@ -229,13 +230,14 @@ int ump_st_mem_write(ump_stream_mem_t hd, void *arg)
             err = UMP_ERR_INVALID_ARG;
             break;
         }
-        if ((hd->pos+wrarg->len) > hd->spc) {
+        if ( (hd->pos+wrarg->off+wrarg->len) > hd->spc) {
             err = UMP_ERR_RANGEOVF;
             break;
         }
-        memcpy(hd->buf+hd->pos, wrarg->ptr, wrarg->len);
+        memcpy(hd->buf+hd->pos+wrarg->off, wrarg->ptr, wrarg->len);
         if (wrarg->mov) {
             hd->pos += wrarg->len;
+            hd->pos += wrarg->off;
         }
         if (hd->pos >= hd->len) {
             hd->len += wrarg->len;
@@ -260,17 +262,30 @@ int ump_st_mem_seek(ump_stream_mem_t hd, void* arg)
                 err = UMP_ERR_RANGEOVF;
                 break;
             }
+
+            if (hd->spc == 0) {
+                if (sekarg->off > hd->len) {
+                    err = UMP_ERR_RANGEOVF;
+                    break;
+                }
+            } else {
+                if (sekarg->off > hd->spc) {
+                    err = UMP_ERR_RANGEOVF;
+                    break;
+                }
+            }
             hd->pos = sekarg->off;
         }
         else if (sekarg->whe == UMP_SEEK_CUR) {
-            if (((sekarg->off + hd->pos) < 0) || ((sekarg->off + hd->pos) > hd->spc)) {
+            if (((sekarg->off + hd->pos) < 0) || ((sekarg->off + hd->pos) > (hd->spc==0?hd->len:hd->spc))) 
+            {
                 err = UMP_ERR_RANGEOVF;
                 break;
             }
             hd->pos += sekarg->off;
         }
         else if (sekarg->whe == UMP_SEEK_END) {
-            if ((sekarg->off + hd->len) > hd->spc) {
+            if ((sekarg->off + hd->len) > (hd->spc==0?hd->len:hd->spc)) {
                 err = UMP_ERR_RANGEOVF;
                 break;
             }
@@ -377,6 +392,9 @@ int ump_st_mem_fn(ump_stream_t hd, ump_opcode opcode, void* arg)
                 break;
             case UMP_OP_CLOSE:
                 err = ump_st_mem_close(memst, arg);
+                break;
+            case UMP_OP_REQ:
+                err = ump_st_mem_req(memst, arg);
                 break;
             default:
                 err = UMP_ERR_UNSUPPORTED;

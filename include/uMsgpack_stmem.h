@@ -28,7 +28,7 @@ typedef struct ump_stream_mem
 typedef ump_stream_mem* ump_stream_mem_t;
 
 ump_stream_mem_t ump_st_mem_create(uint64_t len, ump_memop_t memop);
-ump_stream_mem_t ump_st_mem_create_with(const void* buf, uint64_t len, ump_memop_t memop);
+ump_stream_mem_t ump_st_mem_create_with(void* buf, uint64_t len, ump_memop_t memop);
 int ump_st_mem_destroy(ump_stream_mem_t st);
 
 #ifdef __cplusplus

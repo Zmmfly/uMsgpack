@@ -2,7 +2,8 @@
 Embedded friendly lightweight Messagepack implemented in C language.
 
 # License
-AGPL V3.0
+1. AGPL V3.0
+2. AEL V0.1
 
 # Todo
 - [x] Implementation plan

@@ -10,7 +10,7 @@ extern "C" {
 int ump_add_pfixint(ump_handle_t hd, uint8_t val);
 
 int ump_add_fixmap(ump_handle_t hd, uint8_t val);
-int ump_add_fixarray(ump_handle_t hd, uint8_t val);
+int ump_add_fixarr(ump_handle_t hd, uint8_t val);
 
 int ump_add_fixstr(ump_handle_t hd, const char* val, uint8_t len);
 int ump_add_nil(ump_handle_t hd);
@@ -47,8 +47,8 @@ int ump_add_str8(ump_handle_t hd, const char* val, uint8_t len);
 int ump_add_str16(ump_handle_t hd, const char* val, uint16_t len);
 int ump_add_str32(ump_handle_t hd, const char* val, uint32_t len);
 
-int ump_add_array16(ump_handle_t hd, uint16_t len);
-int ump_add_array32(ump_handle_t hd, uint32_t len);
+int ump_add_arr16(ump_handle_t hd, uint16_t len);
+int ump_add_arr32(ump_handle_t hd, uint32_t len);
 
 int ump_add_map16(ump_handle_t hd, uint16_t len);
 int ump_add_map32(ump_handle_t hd, uint32_t len);

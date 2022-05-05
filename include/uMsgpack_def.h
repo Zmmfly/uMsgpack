@@ -27,6 +27,8 @@ typedef enum ump_err
     /* not supported */
     UMP_ERR_UNSUPPORTED,
     /* invalid stream */
+    UMP_ERR_READ,
+    UMP_ERR_WRITE,
     UMP_ERR_INVALID_STREAM,
     UMP_ERR_INVALID_MEMOP,
     /* type error */
@@ -75,6 +77,7 @@ typedef void* ump_arg_open;
 typedef struct ump_arg_read
 {
     void *ptr;
+    int64_t off;
     size_t len;
     bool mov;
 }ump_arg_read;
@@ -157,7 +160,7 @@ typedef struct ump_stream
 typedef struct ump_handle
 {
     ump_stream_t stream;
-    ump_err lasterr;
+    ump_err err;
     uint64_t dec_pos;
     uint64_t dec_nxt;
 }ump_handle;

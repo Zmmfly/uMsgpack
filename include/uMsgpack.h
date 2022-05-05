@@ -4,6 +4,8 @@
 #include "uMsgpack_def.h"
 #include "uMsgpack_add.h"
 #include "uMsgpack_get.h"
+#include "uMsgpack_stmem.h"
+#include "uMsgpack_utils.h"
 
 #ifdef __cplusplus
 extern "C" {

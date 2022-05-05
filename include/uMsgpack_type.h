@@ -8,9 +8,9 @@ extern "C" {
 typedef enum ump_type
 {
     ump_type_pfint  = 0x00,
-    ump_type_fixmap = 0x80,
-    ump_type_fixarr = 0x90,
-    ump_type_fixstr = 0xA0,
+    ump_type_fmap   = 0x80,
+    ump_type_farr   = 0x90,
+    ump_type_fstr   = 0xA0,
     ump_type_nil    = 0xC0,
     ump_type_false  = 0xC2,
     ump_type_true   = 0xC3,
