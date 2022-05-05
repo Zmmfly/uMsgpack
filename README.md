@@ -15,8 +15,11 @@ Embedded friendly lightweight Messagepack implemented in C language.
 
 ## Development progress
 - [x] Utils
-- [ ] Stream for mem
-- [ ] API for add
-- [ ] API for get
+- [x] Stream for mem
+- [x] API for add
+- [x] API for get
+- [x] Test for add
+- [ ] Test for get
+- [ ] Test for comprehensive
 - [ ] Stream for file
 - [ ] Complete
