@@ -267,10 +267,16 @@ int ump_st_mem_seek(ump_stream_mem_t hd, void* arg)
                 if (sekarg->off > hd->len) {
                     err = UMP_ERR_RANGEOVF;
                     break;
+                } else if (sekarg->off == hd->len) {
+                    err = UMP_ERR_EOF;
+                    break;
                 }
             } else {
                 if (sekarg->off > hd->spc) {
                     err = UMP_ERR_RANGEOVF;
+                    break;
+                } else if (sekarg->off == hd->spc) {
+                    err = UMP_ERR_EOF;
                     break;
                 }
             }

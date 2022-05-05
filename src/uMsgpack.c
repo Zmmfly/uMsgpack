@@ -48,7 +48,7 @@ int ump_next(ump_handle_t hd, ump_type_t type)
         }
         hd->dec_pos = hd->dec_nxt;
 
-        err = ump_st_read(hd, 0, mtype, 1, false);
+        err = ump_st_read(hd, 0, &mtype, 1, false);
         if (err != UMP_EOK) {
             break;
         }
@@ -194,17 +194,17 @@ int ump_next(ump_handle_t hd, ump_type_t type)
             hd->dec_nxt = hd->dec_pos + 6;
         }
 
-        else if (type == ump_type_fixe8) {
+        else if (mtype == ump_type_fixe8) {
             *type = mtype;
             hd->dec_nxt = hd->dec_pos + 10;
         }
 
-        else if (type == ump_type_a16 || type == ump_type_m16) {
+        else if (mtype == ump_type_a16 || mtype == ump_type_m16) {
             *type = mtype;
             hd->dec_nxt = hd->dec_pos + 3;
         }
 
-        else if (type == ump_type_a32 || type == ump_type_m32) {
+        else if (mtype == ump_type_a32 || mtype == ump_type_m32) {
             *type = mtype;
             hd->dec_nxt = hd->dec_pos + 5;
         }
