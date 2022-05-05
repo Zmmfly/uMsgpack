@@ -14,7 +14,7 @@ void result_output(std::string prefix, std::string name, bool pass, std::string 
     }
 
     if (!msg.empty()) {
-        printf("%s\t->msg: \033[33m%s\033[0m\n", prefix.c_str(), msg.c_str());
+        printf("%s\t-> \033[33m%s\033[0m\n", prefix.c_str(), msg.c_str());
     }
 }
 
