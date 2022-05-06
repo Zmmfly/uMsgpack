@@ -1,4 +1,5 @@
 #include "test_get.h"
+#include <math.h>
 
 tget_def(pfixint)
 {
@@ -132,6 +133,56 @@ tget_def(nfixint)
             msg = "ump next should be eof";
             break;
         }
+    }while(0);
+    return ret;
+}
+
+tget_def(f32)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xca, 0x3b, 0xa3, 0xd7, 0x0a
+    };
+    float val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_f32) {
+            char buf[4];
+            msg = "ump next type error: ";
+            snprintf(buf, 4, "%02x", type);
+            msg += buf;
+            break;
+        }
+
+        err = ump_get_f32(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (fabs(0.005 - val) > 0.001) {
+            msg = "ump value error: ";
+            msg += std::to_string(val);
+            break;
+        }
+
+        ret = true;
     }while(0);
     return ret;
 }
