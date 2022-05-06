@@ -14,32 +14,28 @@ typedef enum ump_err
 {
     /* no error */
     UMP_EOK = 0,
-    /* fail */
+    UMP_EOF,
     UMP_FAIL = -200,
-    /* arg has null ptr */
     UMP_ERR_NULLPTR,
-    /* arg has invalid value */
-    UMP_ERR_INVALID_ARG,
-    /* not enough memory */
     UMP_ERR_NOMEM,
-    /* range overflow */
-    UMP_ERR_RANGEOVF,
-    /* not supported */
-    UMP_ERR_UNSUPPORTED,
-    /* invalid stream */
+    UMP_ERR_TYPE,
     UMP_ERR_READ,
     UMP_ERR_WRITE,
+    UMP_ERR_RANGEOVF,
+    UMP_ERR_INVALID_ARG,
+    UMP_ERR_INVALID_TYPE,
     UMP_ERR_INVALID_STREAM,
     UMP_ERR_INVALID_MEMOP,
-    /* type error */
-    UMP_ERR_TYPE,
-    /* ended */
-    UMP_ERR_EOF,
     UMP_ERR_CLOSE4DECODE,
-    /* unknown error */
     UMP_ERR_UNKNOWN,
+    UMP_ERR_UNSUPPORTED,
 }ump_err;
 
+/**
+ * @brief uMsgpack stream operations, used in uMsgpack internal, not for user.
+ *        And, OPEN and CLOSE, and DONE, are not used for current version.
+ * 
+ */
 typedef enum ump_opcode
 {
     UMP_OP_OPEN,
@@ -53,6 +49,10 @@ typedef enum ump_opcode
     UMP_OP_MAX
 }ump_opcode;
 
+/**
+ * @brief Memory operations, used in uMsgpack internal, its useful for non-standard memory management.
+ * 
+ */
 typedef struct ump_memop{
     void* (*malloc)(size_t);
     void* (*calloc)(size_t, size_t);
@@ -128,16 +128,10 @@ typedef uint64_t* ump_arg_tell;
 typedef uint64_t* ump_arg_req;
 
 /**
- * @brief done arg, ctx
+ * @brief done arg, and open arg, and close arg, are NULL for current version.
  * 
  */
-typedef void* ump_arg_done;
-
-/**
- * @brief close arg, ctx
- * 
- */
-typedef void* ump_arg_close;
+//typedef void* ump_arg_done;
 
 /**
  * @brief ump stream handle
@@ -148,7 +142,6 @@ typedef ump_stream* ump_stream_t;
 typedef int(*ump_stream_fn_t)(ump_stream_t handle, ump_opcode opcode, void* oparg);
 typedef struct ump_stream
 {
-    void* ctx;
     ump_stream_fn_t fn;
 }ump_stream;
 // typedef ump_stream* ump_stream_t;

@@ -21,13 +21,21 @@ extern "C" {
 int ump_init(ump_handle_t hd, ump_stream_t st);
 
 /**
- * @brief Get next msgpack object, and get its type
+ * @brief Get next msgpack object, and get its type, using for decoding
  * 
  * @param hd uMsgpack handle
  * @param type out param, type of msgpack object
  * @return int UMP_ERR_*
  */
 int ump_next(ump_handle_t hd, ump_type_t type);
+
+/**
+ * @brief Convert ump error code to string
+ * 
+ * @param umperr 
+ * @return const char* 
+ */
+const char* ump_strerr(int umperr);
 
 #ifdef __cplusplus
 }

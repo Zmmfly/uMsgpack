@@ -30,10 +30,6 @@ int ump_next(ump_handle_t hd, ump_type_t type)
         uint8_t u8[4];
         uint32_t u32;
     }be32;
-    union{
-        uint8_t u8[8];
-        uint64_t u64;
-    }be64;
     uint8_t mtype;
     ump_err err = UMP_FAIL;
     do{
@@ -54,57 +50,63 @@ int ump_next(ump_handle_t hd, ump_type_t type)
         }
 
         if (mtype >= 0x00 && mtype <= 0x7f) {
-            *type = ump_type_pfint;
+            *type       = ump_type_pfint;
             hd->dec_nxt = hd->dec_pos + 1;
+            err         = UMP_EOK;
+            break;
         }
 
         else if (mtype >= 0x80 && mtype <= 0x8f) {
-            *type = ump_type_fmap;
+            *type       = ump_type_fmap;
             hd->dec_nxt = hd->dec_pos + 1;
+            err         = UMP_EOK;
+            break;
         }
 
         else if (mtype >= 0x90 && mtype <= 0x9f) {
-            *type = ump_type_farr;
+            *type       = ump_type_farr;
             hd->dec_nxt = hd->dec_pos + 1;
+            err         = UMP_EOK;
+            break;
         }
 
         else if (mtype >= 0xa0 && mtype <= 0xbf) {
-            *type = ump_type_fstr;
+            *type       = ump_type_fstr;
             hd->dec_nxt = hd->dec_pos + 1 + (mtype&0x1f);
+            err         = UMP_EOK;
+            break;
         }
 
         else if (mtype >= 0xe0 && mtype <= 0xff) {
-            *type = ump_type_nfint;
+            *type       = ump_type_nfint;
             hd->dec_nxt = hd->dec_pos + 1;
+            err         = UMP_EOK;
+            break;
         }
 
         else if (mtype == ump_type_nil || mtype == ump_type_false || mtype == ump_type_true) {
-            *type = mtype;
             hd->dec_nxt = hd->dec_pos + 1;
         }
 
         else if (mtype == ump_type_b8 || mtype == ump_type_s8) {
-            *type = mtype;
             err = ump_st_read(hd, 1, be, 1, false);
             if (err != UMP_EOK) {
                 break;
             }
-            hd->dec_nxt = hd->dec_pos + 1 + be[0];
+            hd->dec_nxt = hd->dec_pos + 2 + be[0];
         }
 
         else if (mtype == ump_type_b16 || mtype == ump_type_s16) {
-            *type = mtype;
             err = ump_st_read(hd, 1, be, 2, false);
             if (err != UMP_EOK) {
                 break;
             }
             be16.u8[0] = be[1];
             be16.u8[1] = be[0];
-            hd->dec_nxt = hd->dec_pos + 1 + be16.u16;
+            hd->dec_nxt = hd->dec_pos + 3 + be16.u16;
         }
 
         else if (mtype == ump_type_b32 || mtype == ump_type_s32) {
-            *type = mtype;
             err = ump_st_read(hd, 1, be, 4, false);
             if (err != UMP_EOK) {
                 break;
@@ -113,11 +115,10 @@ int ump_next(ump_handle_t hd, ump_type_t type)
             be32.u8[1] = be[2];
             be32.u8[2] = be[1];
             be32.u8[3] = be[0];
-            hd->dec_nxt = hd->dec_pos + 1 + be32.u32;
+            hd->dec_nxt = hd->dec_pos + 5 + be32.u32;
         }
 
         else if (mtype == ump_type_e8) {
-            *type = mtype;
             err = ump_st_read(hd, 1, be, 1, false);
             if (err != UMP_EOK) {
                 break;
@@ -126,7 +127,6 @@ int ump_next(ump_handle_t hd, ump_type_t type)
         }
 
         else if (mtype == ump_type_e16) {
-            *type = mtype;
             err = ump_st_read(hd, 1, be, 2, false);
             if (err != UMP_EOK) {
                 break;
@@ -137,7 +137,6 @@ int ump_next(ump_handle_t hd, ump_type_t type)
         }
 
         else if (mtype == ump_type_e32) {
-            *type = mtype;
             err = ump_st_read(hd, 1, be, 4, false);
             if (err != UMP_EOK) {
                 break;
@@ -150,62 +149,54 @@ int ump_next(ump_handle_t hd, ump_type_t type)
         }
 
         else if (mtype == ump_type_f32) {
-            *type == mtype;
             hd->dec_nxt = hd->dec_pos + 5;
         }
 
         else if (mtype == ump_type_f64) {
-            *type = mtype;
             hd->dec_nxt = hd->dec_pos + 9;
         }
 
         else if (mtype == ump_type_u8 || mtype == ump_type_i8) {
-            *type = mtype;
             hd->dec_nxt = hd->dec_pos + 2;
         }
 
         else if (mtype == ump_type_u16 || mtype == ump_type_i16) {
-            *type = mtype;
             hd->dec_nxt = hd->dec_pos + 3;
         }
 
         else if (mtype == ump_type_u32 || mtype == ump_type_i32) {
-            *type = mtype;
             hd->dec_nxt = hd->dec_pos + 5;
         }
 
         else if (mtype == ump_type_u64 || mtype == ump_type_i64) {
-            *type = mtype;
             hd->dec_nxt = hd->dec_pos + 9;
         }
 
-        else if (mtype == ump_type_fixe1) {
-            *type = mtype;
+        else if (mtype == ump_type_fe1) {
             hd->dec_nxt = hd->dec_pos + 3;
         }
 
-        else if (mtype == ump_type_fixe2) {
-            *type == mtype;
+        else if (mtype == ump_type_fe2) {
             hd->dec_nxt = hd->dec_pos + 4;
         }
 
-        else if (mtype == ump_type_fixe4) {
-            *type = mtype;
+        else if (mtype == ump_type_fe4) {
             hd->dec_nxt = hd->dec_pos + 6;
         }
 
-        else if (mtype == ump_type_fixe8) {
-            *type = mtype;
+        else if (mtype == ump_type_fe8) {
             hd->dec_nxt = hd->dec_pos + 10;
         }
 
+        else if (mtype == ump_type_fe16) {
+            hd->dec_nxt = hd->dec_pos + 18;
+        }
+
         else if (mtype == ump_type_a16 || mtype == ump_type_m16) {
-            *type = mtype;
             hd->dec_nxt = hd->dec_pos + 3;
         }
 
         else if (mtype == ump_type_a32 || mtype == ump_type_m32) {
-            *type = mtype;
             hd->dec_nxt = hd->dec_pos + 5;
         }
 
@@ -214,8 +205,48 @@ int ump_next(ump_handle_t hd, ump_type_t type)
             break;
         }
 
+        *type = mtype;
         err = UMP_EOK;
     }while(0);
     return err;
 }
 
+const char* ump_strerr(int umperr)
+{
+    switch(umperr) {
+        case UMP_EOK:
+            return "ump_strerr: ok";
+        case UMP_EOF:
+            return "ump_strerr: end of stream";
+        case UMP_FAIL:
+            return "ump_strerr: fail";
+        case UMP_ERR_NULLPTR:
+            return "ump_strerr: null pointer";
+        case UMP_ERR_NOMEM:
+            return "ump_strerr: no memory";
+        case UMP_ERR_TYPE:
+            return "ump_strerr: type error";
+        case UMP_ERR_READ:
+            return "ump_strerr: read error";
+        case UMP_ERR_WRITE:
+            return "ump_strerr: write error";
+        case UMP_ERR_RANGEOVF:
+            return "ump_strerr: range overflow";
+        case UMP_ERR_INVALID_ARG:
+            return "ump_strerr: invalid argument";
+        case UMP_ERR_INVALID_TYPE:
+            return "ump_strerr: invalid type";
+        case UMP_ERR_INVALID_STREAM:
+            return "ump_strerr: invalid stream";
+        case UMP_ERR_INVALID_MEMOP:
+            return "ump_strerr: invalid memory operation";
+        case UMP_ERR_CLOSE4DECODE:
+            return "ump_strerr: close for decode";
+        case UMP_ERR_UNKNOWN:
+            return "ump_strerr: unknown error";
+        case UMP_ERR_UNSUPPORTED:
+            return "ump_strerr: unsupported";
+        default:
+            return "ump_strerr: unhadled error";
+    }
+}

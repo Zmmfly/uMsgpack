@@ -16,7 +16,7 @@ ump_handle_t t_get_create_ump(void *ptr, size_t size)
     ump_handle_t     hd = nullptr;
     ump_stream_mem_t st = nullptr;
     do{
-        hd = new ump_handle;
+        hd = (ump_handle_t)calloc(1, sizeof(ump_handle));
         if (hd == nullptr) break;
 
         st = ump_st_mem_create_with(ptr, size, &ump_memop_default);
@@ -35,5 +35,5 @@ void t_get_destroy_ump(ump_handle_t hd)
 {
     if (hd == nullptr) return;
     if (hd->stream) ump_st_mem_destroy((ump_stream_mem_t)hd->stream);
-    delete hd;
+    free(hd);
 }

@@ -1,40 +1,3 @@
-# uMsgpack
-Embedded friendly lightweight Messagepack implemented in C language.
-
-# License
-1. [AGPL V3.0](/LICENSE)
-2. [AEL V0.1](/LICENSE_AEL)
-
-# Todo
-- [x] Implementation plan
-- [x] In development
-- [x] Mini usable version
-- [ ] File stream
-- [ ] First full version
-- [ ] Follow-up maintenance
-
-## Development progress
-- [x] Utils
-- [x] Stream for mem
-- [x] API for add
-- [x] API for get
-- [x] Test for add
-- [x] Test for get
-- [x] Test for mixed
-- [ ] Stream for file
-- [ ] Complete
-
-# Example
-```bash
-# build
-$ xmake -b simple
-# run
-$ xmake run simple
-d9 0c 48 65 6c 6c 6f 20 57 6f 72 6c 64 21
-
-```
-
-```c
 #include "uMsgpack.h"
 #include <string.h>
 #include <stdio.h>
@@ -77,18 +40,3 @@ int main(int argc, char **argv)
     }
     return 0;
 }
-
-```
-
-
-# Build
-- require [xmake](https://xmake.io/#/)
-
-```bash
-# The static library will put into ./dist directory.
-$ xmake
-
-# Build and run test
-$ xmake -b ump_test
-$ xmake run ump_test
-```

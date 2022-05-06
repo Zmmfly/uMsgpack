@@ -176,3 +176,137 @@ int ump_add_map32(ump_handle_t hd, uint32_t len)
     return err;
 }
 
+int ump_add_fixext1(ump_handle_t hd, const void* val, uint8_t len, uint8_t type)
+{
+    ump_err err   = UMP_FAIL;
+    uint8_t mtype = ump_type_fe1;
+    do{
+        err = ump_check_handle(hd);
+        if (err != UMP_EOK) break;
+
+		if (val == NULL || len != 1) {
+            err = UMP_ERR_INVALID_ARG;
+            break;
+        }
+
+        err = ump_st_req(hd, 3);
+        if (err != UMP_EOK) break;
+
+		err = ump_st_write(hd, 0, &mtype, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, &type, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, val, 1, true);
+    }while(0);
+    return err;
+}
+
+int ump_add_fixext2(ump_handle_t hd, const void* val, uint8_t len, uint8_t type)
+{
+    ump_err err   = UMP_FAIL;
+    uint8_t mtype = ump_type_fe2;
+    do{
+        err = ump_check_handle(hd);
+        if (err != UMP_EOK) break;
+
+		if (val == NULL || len != 2) {
+            err = UMP_ERR_INVALID_ARG;
+            break;
+        }
+
+        err = ump_st_req(hd, 4);
+        if (err != UMP_EOK) break;
+
+		err = ump_st_write(hd, 0, &mtype, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, &type, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, val, 2, true);
+    }while(0);
+    return err;
+}
+
+int ump_add_fixext4(ump_handle_t hd, const void* val, uint8_t len, uint8_t type)
+{
+    ump_err err   = UMP_FAIL;
+    uint8_t mtype = ump_type_fe4;
+    do{
+        err = ump_check_handle(hd);
+        if (err != UMP_EOK) break;
+
+		if (val == NULL || len != 4) {
+            err = UMP_ERR_INVALID_ARG;
+            break;
+        }
+
+        err = ump_st_req(hd, 6);
+        if (err != UMP_EOK) break;
+
+		err = ump_st_write(hd, 0, &mtype, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, &type, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, val, 4, true);
+    }while(0);
+    return err;
+}
+
+int ump_add_fixext8(ump_handle_t hd, const void* val, uint8_t len, uint8_t type)
+{
+    ump_err err   = UMP_FAIL;
+    uint8_t mtype = ump_type_fe8;
+    do{
+        err = ump_check_handle(hd);
+        if (err != UMP_EOK) break;
+
+		if (val == NULL || len != 8) {
+            err = UMP_ERR_INVALID_ARG;
+            break;
+        }
+
+        err = ump_st_req(hd, 10);
+        if (err != UMP_EOK) break;
+
+		err = ump_st_write(hd, 0, &mtype, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, &type, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, val, 8, true);
+    }while(0);
+    return err;
+}
+
+int ump_add_fixext16(ump_handle_t hd, const void* val, uint8_t len, uint8_t type)
+{
+    ump_err err   = UMP_FAIL;
+    uint8_t mtype = ump_type_fe16;
+    do{
+        err = ump_check_handle(hd);
+        if (err != UMP_EOK) break;
+
+		if (val == NULL || len != 16) {
+            err = UMP_ERR_INVALID_ARG;
+            break;
+        }
+
+        err = ump_st_req(hd, 18);
+        if (err != UMP_EOK) break;
+
+		err = ump_st_write(hd, 0, &mtype, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, &type, 1, true);
+        if (err != UMP_EOK) break;
+
+        err = ump_st_write(hd, 0, val, 16, true);
+    }while(0);
+    return err;
+}

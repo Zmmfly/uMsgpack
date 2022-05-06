@@ -26,7 +26,7 @@ int ump_st_open(ump_handle_t hd)
     if (ret != UMP_EOK) return ret;
     ret = UMP_FAIL;
     do{
-        ret = hd->stream->fn(hd->stream, UMP_OP_OPEN, hd->stream->ctx);
+        ret = hd->stream->fn(hd->stream, UMP_OP_OPEN, NULL);
     }while(0);
     return ret;
 }
@@ -43,7 +43,7 @@ int ump_st_done(ump_handle_t hd)
     if (ret != UMP_EOK) return ret;
     ret = UMP_FAIL;
     do{
-        ret = hd->stream->fn(hd->stream, UMP_OP_DONE, hd->stream->ctx);
+        ret = hd->stream->fn(hd->stream, UMP_OP_DONE, NULL);
     }while(0);
     return ret;
 }
@@ -60,7 +60,7 @@ int ump_st_close(ump_handle_t hd)
     if (ret != UMP_EOK) return ret;
     ret = UMP_FAIL;
     do{
-        ret = hd->stream->fn(hd->stream, UMP_OP_CLOSE, hd->stream->ctx);
+        ret = hd->stream->fn(hd->stream, UMP_OP_CLOSE, NULL);
     }while(0);
     return ret;
 }

@@ -66,6 +66,7 @@ tget_def(pfixint)
             break;
         }
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -134,6 +135,7 @@ tget_def(nfixint)
             break;
         }
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -162,10 +164,8 @@ tget_def(f32)
         }
 
         if (type != ump_type_f32) {
-            char buf[4];
             msg = "ump next type error: ";
-            snprintf(buf, 4, "%02x", type);
-            msg += buf;
+            msg += std::to_string(type);
             break;
         }
 
@@ -184,8 +184,61 @@ tget_def(f32)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
+
+tget_def(f64)
+{
+    bool ret = false;
+    int err = 0;
+    uint8_t msgpack[] = {
+        0xcb, 0x3F, 0xE1, 0xEB, 0x85, 0x1E, 0xB8, 0x51, 0xEC
+    };
+    double val;
+    ump_type type;
+    ump_handle_t hd = nullptr;
+    do{
+        hd = t_get_create_ump(msgpack, sizeof(msgpack));
+        if (hd == nullptr) {
+            msg = "create ump handle with pseudo failed";
+            break;
+        }
+
+        err = ump_next(hd, &type);
+        if (err != UMP_EOK) {
+            msg = "ump next failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (type != ump_type_f64) {
+            char buf[4];
+            msg = "ump next type error: ";
+            snprintf(buf, 4, "%02x", type);
+            msg += buf;
+            break;
+        }
+
+        err = ump_get_f64(hd, &val);
+        if (err != UMP_EOK) {
+            msg = "ump get failed: ";
+            msg += std::to_string(err);
+            break;
+        }
+
+        if (fabs(0.56 - val) > 0.00000001) {
+            msg = "ump value error: ";
+            msg += std::to_string(val);
+            break;
+        }
+
+        ret = true;
+    }while(0);
+    if (hd) t_get_destroy_ump(hd);
+    return ret;
+}
+
 
 tget_def(u8)
 {
@@ -230,6 +283,7 @@ tget_def(u8)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -276,6 +330,7 @@ tget_def(u16)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -322,6 +377,7 @@ tget_def(u32)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -368,6 +424,7 @@ tget_def(u64)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -415,6 +472,7 @@ tget_def(i8)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -461,6 +519,7 @@ tget_def(i16)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -507,6 +566,7 @@ tget_def(i32)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }
 
@@ -554,5 +614,6 @@ tget_def(i64)
 
         ret = true;
     }while(0);
+    if (hd) t_get_destroy_ump(hd);
     return ret;
 }

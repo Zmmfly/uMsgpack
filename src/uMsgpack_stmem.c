@@ -36,9 +36,9 @@ ump_stream_mem_t ump_st_mem_create(uint64_t len, ump_memop_t memop)
 
         // init mem stream
         mem_st->stream.fn = ump_st_mem_fn;
-        mem_st->buf = memop->calloc(1, len);
+        mem_st->buf       = memop->calloc(1, len);
         if (mem_st->buf == NULL) break;
-        mem_st->spc = len;
+        mem_st->spc   = len;
         mem_st->memop = memop;
 
         valid = true;
@@ -54,15 +54,6 @@ ump_stream_mem_t ump_st_mem_create(uint64_t len, ump_memop_t memop)
     return mem_st;
 }
 
-/**
- * @brief Create a mem stream for a given buffer
- * @note This function does not copy or free the input buffer.
- * 
- * @param buf 
- * @param len 
- * @param memop 
- * @return ump_stream_mem_t 
- */
 ump_stream_mem_t ump_st_mem_create_with(void* buf, uint64_t len, ump_memop_t memop)
 {
     bool             valid  = false;
@@ -97,13 +88,6 @@ ump_stream_mem_t ump_st_mem_create_with(void* buf, uint64_t len, ump_memop_t mem
     return mem_st;
 }
 
-/**
- * @brief Destroy a ump_stream_mem
- * @note This function will free the buffer if spc not zero.
- * 
- * @param st 
- * @return int 
- */
 int ump_st_mem_destroy(ump_stream_mem_t st)
 {
     ump_err err = UMP_FAIL;
@@ -123,6 +107,19 @@ int ump_st_mem_destroy(ump_stream_mem_t st)
         err = UMP_EOK;
     }while(0);
     return err;
+}
+
+uint8_t* ump_st_mem_get_buf(ump_stream_mem_t st, uint64_t* len)
+{
+    uint8_t* buf = NULL;
+    do{
+        if (st == NULL) break;
+        if (st->memop == NULL) break;
+        if (st->buf == NULL) break;
+        if (len) *len = st->len;
+        buf = st->buf;
+    }while(0);
+    return buf;
 }
 
 int ump_st_mem_open(ump_stream_mem_t hd, void* arg)
@@ -268,7 +265,7 @@ int ump_st_mem_seek(ump_stream_mem_t hd, void* arg)
                     err = UMP_ERR_RANGEOVF;
                     break;
                 } else if (sekarg->off == hd->len) {
-                    err = UMP_ERR_EOF;
+                    err = UMP_EOF;
                     break;
                 }
             } else {
@@ -276,7 +273,7 @@ int ump_st_mem_seek(ump_stream_mem_t hd, void* arg)
                     err = UMP_ERR_RANGEOVF;
                     break;
                 } else if (sekarg->off == hd->spc) {
-                    err = UMP_ERR_EOF;
+                    err = UMP_EOF;
                     break;
                 }
             }
