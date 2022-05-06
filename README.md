@@ -24,6 +24,18 @@ Embedded friendly lightweight Messagepack implemented in C language.
 - [ ] Stream for file
 - [ ] Complete
 
+# Build
+- require [xmake](https://xmake.io/#/)
+
+```bash
+# The static library will put into ./dist directory.
+$ xmake
+
+# Build and run test
+$ xmake -b ump_test
+$ xmake run ump_test
+```
+
 # Example
 ```bash
 # build
@@ -78,17 +90,4 @@ int main(int argc, char **argv)
     return 0;
 }
 
-```
-
-
-# Build
-- require [xmake](https://xmake.io/#/)
-
-```bash
-# The static library will put into ./dist directory.
-$ xmake
-
-# Build and run test
-$ xmake -b ump_test
-$ xmake run ump_test
 ```
