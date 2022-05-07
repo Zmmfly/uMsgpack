@@ -240,8 +240,8 @@ const char* ump_strerr(int umperr)
             return "ump_strerr: invalid stream";
         case UMP_ERR_INVALID_MEMOP:
             return "ump_strerr: invalid memory operation";
-        case UMP_ERR_CLOSE4DECODE:
-            return "ump_strerr: close for decode";
+        case UMP_ERR_DECODEONLY:
+            return "ump_strerr: decode only";
         case UMP_ERR_UNKNOWN:
             return "ump_strerr: unknown error";
         case UMP_ERR_UNSUPPORTED:

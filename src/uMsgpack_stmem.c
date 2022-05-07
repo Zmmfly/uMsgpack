@@ -168,7 +168,7 @@ int ump_st_mem_close(ump_stream_mem_t hd, void* arg)
         }
 
         if (hd->buf != NULL && hd->spc == 0) {
-            err = UMP_ERR_CLOSE4DECODE;
+            err = UMP_ERR_DECODEONLY;
             break;
         }
 
@@ -341,6 +341,10 @@ int ump_st_mem_req(ump_stream_mem_t hd, void* arg)
         req = *((uint64_t*)arg);
         if (req == 0) {
             err = UMP_ERR_INVALID_ARG;
+            break;
+        }
+        if (hd->spc == 0) {
+            err = UMP_ERR_DECODEONLY;
             break;
         }
         if (req < (hd->spc - hd->pos) ) {
