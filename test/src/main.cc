@@ -36,7 +36,7 @@ int main(int argc, char **argv)
     utils::test::run_units(t_get_units, t_get_num, false, "get_stmem: ");
     utils::test::run_units(t_mix_units, t_mix_num, false, "mix_stmem: ");
     utils::test::run_units(t_astf_units, t_astf_num, false, "add_stfil: ");
-    utils::test::run_units(t_gstf_units, t_gstf_num, false, "add_gtfil: ");
+    utils::test::run_units(t_gstf_units, t_gstf_num, false, "get_stfil: ");
     mem_guard_stop();
     mem_guard_print();
     return 0;

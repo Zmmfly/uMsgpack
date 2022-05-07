@@ -1,7 +1,7 @@
 -- set_strip("debug")
-set_symbols("debug")
+-- set_symbols("debug")
 -- set_warnings("all")
--- set_optimize("fastest")
+set_optimize("fastest")
 
 target("uMsgpack")
     set_kind("static")
