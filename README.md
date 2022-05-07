@@ -9,8 +9,8 @@ Embedded friendly lightweight Messagepack implemented in C language.
 - [x] Implementation plan
 - [x] In development
 - [x] Mini usable version
-- [ ] File stream
-- [ ] First full version
+- [x] File stream
+- [x] First full version
 - [ ] Follow-up maintenance
 
 ## Development progress
@@ -21,7 +21,7 @@ Embedded friendly lightweight Messagepack implemented in C language.
 - [x] Test for add
 - [x] Test for get
 - [x] Test for mixed
-- [ ] Stream for file
+- [x] Stream for file
 - [ ] Complete
 
 # Build

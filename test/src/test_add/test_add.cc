@@ -6,7 +6,7 @@ utils::test::unit_item t_add_units[] = {
 };
 #undef test
 
-#define test(n) __attribute__((weak)) tadd_def(n) {return false;}
+#define test(n) __attribute__((weak)) tadd_def(n) {msg = "not implement";return false;}
 #include "test_def"
 #undef test
 

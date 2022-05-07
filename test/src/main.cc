@@ -5,7 +5,9 @@
 #include <sys/time.h>
 
 #include "test_add.h"
+#include "test_astf.h"
 #include "test_get.h"
+#include "test_gstf.h"
 #include "test_mix.h"
 #include "utils/test.h"
 
@@ -30,9 +32,11 @@ int main(int argc, char **argv)
 {
     mem_guard_start();
     // mem_guard_echo(true);
-    utils::test::run_units(t_add_units, t_add_num, false, "add_test: ");
-    utils::test::run_units(t_get_units, t_get_num, false, "get_test: ");
-    utils::test::run_units(t_mix_units, t_mix_num, false, "mix_test: ");
+    utils::test::run_units(t_add_units, t_add_num, false, "add_stmem: ");
+    utils::test::run_units(t_get_units, t_get_num, false, "get_stmem: ");
+    utils::test::run_units(t_mix_units, t_mix_num, false, "mix_stmem: ");
+    utils::test::run_units(t_astf_units, t_astf_num, false, "add_stfil: ");
+    utils::test::run_units(t_gstf_units, t_gstf_num, false, "add_gtfil: ");
     mem_guard_stop();
     mem_guard_print();
     return 0;
