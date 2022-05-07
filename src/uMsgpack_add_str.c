@@ -6,9 +6,6 @@ int ump_add_fixstr(ump_handle_t hd, const char* val, uint8_t len)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_fstr;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         if (val == NULL || len == 0) {
             err = UMP_ERR_INVALID_ARG;
             break;
@@ -38,9 +35,6 @@ int ump_add_str8(ump_handle_t hd, const char* val, uint8_t len)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_s8;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         if (val == NULL || len == 0) {
             err = UMP_ERR_INVALID_ARG;
             break;
@@ -66,9 +60,6 @@ int ump_add_str16(ump_handle_t hd, const char* val, uint16_t len)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_s16;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         if (val == NULL || len == 0) {
             err = UMP_ERR_INVALID_ARG;
             break;
@@ -97,9 +88,6 @@ int ump_add_str32(ump_handle_t hd, const char* val, uint32_t len)
     uint8_t type = ump_type_s32;
     ump_err err = UMP_FAIL;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         if (val == NULL || len == 0) {
             err = UMP_ERR_INVALID_ARG;
             break;

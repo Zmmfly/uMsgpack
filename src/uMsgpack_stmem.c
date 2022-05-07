@@ -122,76 +122,11 @@ uint8_t* ump_st_mem_get_buf(ump_stream_mem_t st, uint64_t* len)
     return buf;
 }
 
-int ump_st_mem_open(ump_stream_mem_t hd, void* arg)
-{
-    ump_err err = UMP_FAIL;
-    do{
-        if (hd == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-        if (hd->buf == NULL && hd->spc) {
-            hd->buf = hd->memop->malloc(hd->spc);
-            err = (hd->buf == NULL) ? UMP_ERR_NOMEM : UMP_EOK;
-            break;
-        }
-        err = UMP_EOK;
-    }while(0);
-    return err;
-}
-
-int ump_st_mem_done(ump_stream_mem_t hd, void* arg)
-{
-    ump_err err = UMP_FAIL;
-    do{
-        if (hd == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-        //do something
-        err = UMP_EOK;
-    }while(0);
-    return err;
-}
-
-int ump_st_mem_close(ump_stream_mem_t hd, void* arg)
-{
-    ump_err err = UMP_FAIL;
-    do{
-        if (hd == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-
-        if (hd->buf == NULL || hd->memop == NULL) {
-            err = UMP_ERR_INVALID_STREAM;
-        }
-
-        if (hd->buf != NULL && hd->spc == 0) {
-            err = UMP_ERR_DECODEONLY;
-            break;
-        }
-
-        hd->memop->free(hd->buf);
-        hd->buf = NULL;
-        err = UMP_EOK;
-    }while(0);
-    return err;
-}
-
 int ump_st_mem_read(ump_stream_mem_t hd, void *arg)
 {
     ump_err err = UMP_FAIL;
     ump_arg_read_t rdarg = (ump_arg_read_t) arg;
     do{
-        if (hd == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-        if (rdarg == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
         if (rdarg->ptr == NULL || rdarg->len == 0) {
             err = UMP_ERR_INVALID_ARG;
             break;
@@ -215,14 +150,6 @@ int ump_st_mem_write(ump_stream_mem_t hd, void *arg)
     ump_err err = UMP_FAIL;
     ump_arg_write_t wrarg = (ump_arg_write_t) arg;
     do{
-        if (hd == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-        if (wrarg == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
         if (wrarg->ptr == NULL || wrarg->len == 0) {
             err = UMP_ERR_INVALID_ARG;
             break;
@@ -249,11 +176,6 @@ int ump_st_mem_seek(ump_stream_mem_t hd, void* arg)
     ump_err err = UMP_FAIL;
     ump_arg_seek_t sekarg = (ump_arg_seek_t)arg;
     do{
-        if (sekarg == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-
         if (sekarg->whe == UMP_SEEK_BEG) {
             if (sekarg->off < 0) {
                 err = UMP_ERR_RANGEOVF;
@@ -322,24 +244,12 @@ int ump_st_mem_tell(ump_stream_mem_t hd, void* arg)
 
 int ump_st_mem_req(ump_stream_mem_t hd, void* arg)
 {
-    ump_err err = UMP_FAIL;
-    uint64_t req = 0;
-    uint8_t rev = 20;
-    void *tmp = NULL;
+    ump_err       err  = UMP_FAIL;
+    ump_arg_req_t req  = (ump_arg_req_t)arg;
+    uint8_t       rev  = 20;
+    void          *tmp = NULL;
     do{
-        if (arg == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-        if (hd == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-        if (hd->memop == NULL) {
-            err = UMP_ERR_INVALID_MEMOP;
-        }
-        req = *((uint64_t*)arg);
-        if (req == 0) {
+        if (*req == 0) {
             err = UMP_ERR_INVALID_ARG;
             break;
         }
@@ -347,17 +257,17 @@ int ump_st_mem_req(ump_stream_mem_t hd, void* arg)
             err = UMP_ERR_DECODEONLY;
             break;
         }
-        if (req < (hd->spc - hd->pos) ) {
+        if (*req < (hd->spc - hd->pos) ) {
             err = UMP_EOK;
             break;
         }
-        tmp = hd->memop->realloc(hd->buf, hd->spc + req + rev);
+        tmp = hd->memop->realloc(hd->buf, hd->spc + *req + rev);
         if (tmp == NULL) {
             err = UMP_ERR_NOMEM;
             break;
         }
         hd->buf = tmp;
-        hd->spc = hd->spc + req + rev;
+        hd->spc = hd->spc + *req + rev;
         err = UMP_EOK;
     }while(0);
     return err;
@@ -368,20 +278,7 @@ int ump_st_mem_fn(ump_stream_t hd, ump_opcode opcode, void* arg)
     ump_err err = UMP_FAIL;
     ump_stream_mem_t memst = (ump_stream_mem_t)hd;
     do{
-        if (hd == NULL) {
-            err = UMP_ERR_NULLPTR;
-            break;
-        }
-
-        if (memst->buf == NULL) {
-            err = UMP_ERR_INVALID_STREAM;
-            break;
-        }
-
         switch(opcode) {
-            case UMP_OP_OPEN:
-                err = ump_st_mem_open(memst, arg);
-                break;
             case UMP_OP_RD:
                 err = ump_st_mem_read(memst, arg);
                 break;
@@ -393,12 +290,6 @@ int ump_st_mem_fn(ump_stream_t hd, ump_opcode opcode, void* arg)
                 break;
             case UMP_OP_TELL:
                 err = ump_st_mem_tell(memst, arg);
-                break;
-            case UMP_OP_DONE:
-                err = ump_st_mem_done(memst, arg);
-                break;
-            case UMP_OP_CLOSE:
-                err = ump_st_mem_close(memst, arg);
                 break;
             case UMP_OP_REQ:
                 err = ump_st_mem_req(memst, arg);

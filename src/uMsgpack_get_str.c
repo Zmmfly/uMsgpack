@@ -2,14 +2,12 @@
 
 int ump_get_fixstr(ump_handle_t hd, char* buf, uint32_t* len)
 {
-    ump_err err  = UMP_FAIL;
     uint8_t type = 0;
-    uint8_t mlen  = 0;
+    uint8_t mlen = 0;
+    ump_err err  = UMP_ERR_INVALID_ARG;
     do{
-        if (ump_check_handle(hd) != UMP_EOK || len == NULL) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (len == NULL) break;
+
         err = ump_st_read(hd, 0, &type, 1, false);
         if (err != UMP_EOK) break;
 
@@ -37,14 +35,11 @@ int ump_get_fixstr(ump_handle_t hd, char* buf, uint32_t* len)
 
 int ump_get_str8(ump_handle_t hd, char* buf, uint32_t* len)
 {
-    ump_err err  = UMP_FAIL;
     uint8_t type = 0;
     uint8_t mlen = 0;
+    ump_err err  = UMP_ERR_INVALID_ARG;
     do{
-        if (ump_check_handle(hd) != UMP_EOK || len == NULL) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (len == NULL) break;
 
         err = ump_st_read(hd, 0, &type, 1, false);
         if (err != UMP_EOK) break;
@@ -72,18 +67,16 @@ int ump_get_str8(ump_handle_t hd, char* buf, uint32_t* len)
 
 int ump_get_str16(ump_handle_t hd, char* buf, uint32_t* len)
 {
-    ump_err err  = UMP_FAIL;
-    uint8_t type = 0;
     uint8_t be[2];
     union {
         uint16_t u16;
         uint8_t  u8[2];
     }be16;
+    uint8_t type = 0;
+    ump_err err  = UMP_ERR_INVALID_ARG;
     do{
-        if (ump_check_handle(hd) != UMP_EOK || len == NULL) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (len == NULL) break;
+
         err = ump_st_read(hd, 0, &type, 1, false);
         if (err != UMP_EOK) break;
 
@@ -114,18 +107,15 @@ int ump_get_str16(ump_handle_t hd, char* buf, uint32_t* len)
 
 int ump_get_str32(ump_handle_t hd, char* buf, uint32_t* len)
 {
-    ump_err err  = UMP_FAIL;
-    uint8_t type = 0;
     uint8_t be[4];
     union {
         uint32_t u32;
         uint8_t  u8[4];
     }be32;
+    uint8_t type = 0;
+    ump_err err  = UMP_ERR_INVALID_ARG;
     do{
-        if (ump_check_handle(hd) != UMP_EOK || len == NULL) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (len == NULL) break;
 
         err = ump_st_read(hd, 0, &type, 1, false);
         if (err != UMP_EOK) break;

@@ -16,19 +16,23 @@ typedef enum ump_err
     UMP_EOK = 0,
     UMP_EOF,
     UMP_FAIL = -200,
+    UMP_ERR_UNKNOWN,
+    UMP_ERR_UNSUPPORTED,
     UMP_ERR_NULLPTR,
     UMP_ERR_NOMEM,
+    UMP_ERR_RANGEOVF,
     UMP_ERR_TYPE,
     UMP_ERR_READ,
     UMP_ERR_WRITE,
-    UMP_ERR_RANGEOVF,
+    UMP_ERR_OPEN,
+    UMP_ERR_CLOSE,
+    UMP_ERR_IO,
+    UMP_ERR_DECODEONLY,
     UMP_ERR_INVALID_ARG,
     UMP_ERR_INVALID_TYPE,
     UMP_ERR_INVALID_STREAM,
     UMP_ERR_INVALID_MEMOP,
-    UMP_ERR_DECODEONLY,
-    UMP_ERR_UNKNOWN,
-    UMP_ERR_UNSUPPORTED,
+    UMP_ERR_INVALID_HANDLE,
 }ump_err;
 
 /**
@@ -38,14 +42,11 @@ typedef enum ump_err
  */
 typedef enum ump_opcode
 {
-    UMP_OP_OPEN,
     UMP_OP_RD,
+    UMP_OP_REQ,
     UMP_OP_WR,
     UMP_OP_SEEK,
     UMP_OP_TELL,
-    UMP_OP_REQ,
-    UMP_OP_DONE,
-    UMP_OP_CLOSE,
     UMP_OP_MAX
 }ump_opcode;
 
@@ -119,13 +120,15 @@ typedef ump_arg_seek* ump_arg_seek_t;
  * @brief tell arg, relative to the starting position
  * 
  */
-typedef uint64_t* ump_arg_tell;
+typedef uint64_t ump_arg_tell;
+typedef ump_arg_tell* ump_arg_tell_t;
 
 /**
  * @brief req arg, request for memory
  * 
  */
-typedef uint64_t* ump_arg_req;
+typedef uint64_t ump_arg_req;
+typedef ump_arg_req* ump_arg_req_t;
 
 /**
  * @brief done arg, and open arg, and close arg, are NULL for current version.

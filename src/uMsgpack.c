@@ -216,36 +216,64 @@ const char* ump_strerr(int umperr)
     switch(umperr) {
         case UMP_EOK:
             return "ump_strerr: ok";
+
         case UMP_EOF:
             return "ump_strerr: end of stream";
+
         case UMP_FAIL:
             return "ump_strerr: fail";
-        case UMP_ERR_NULLPTR:
-            return "ump_strerr: null pointer";
-        case UMP_ERR_NOMEM:
-            return "ump_strerr: no memory";
-        case UMP_ERR_TYPE:
-            return "ump_strerr: type error";
-        case UMP_ERR_READ:
-            return "ump_strerr: read error";
-        case UMP_ERR_WRITE:
-            return "ump_strerr: write error";
-        case UMP_ERR_RANGEOVF:
-            return "ump_strerr: range overflow";
-        case UMP_ERR_INVALID_ARG:
-            return "ump_strerr: invalid argument";
-        case UMP_ERR_INVALID_TYPE:
-            return "ump_strerr: invalid type";
-        case UMP_ERR_INVALID_STREAM:
-            return "ump_strerr: invalid stream";
-        case UMP_ERR_INVALID_MEMOP:
-            return "ump_strerr: invalid memory operation";
-        case UMP_ERR_DECODEONLY:
-            return "ump_strerr: decode only";
+
         case UMP_ERR_UNKNOWN:
             return "ump_strerr: unknown error";
+
         case UMP_ERR_UNSUPPORTED:
             return "ump_strerr: unsupported";
+
+        case UMP_ERR_NULLPTR:
+            return "ump_strerr: null pointer";
+
+        case UMP_ERR_NOMEM:
+            return "ump_strerr: no memory";
+
+        case UMP_ERR_RANGEOVF:
+            return "ump_strerr: range overflow";
+
+        case UMP_ERR_TYPE:
+            return "ump_strerr: type error";
+
+        case UMP_ERR_READ:
+            return "ump_strerr: read error";
+
+        case UMP_ERR_WRITE:
+            return "ump_strerr: write error";
+
+        case UMP_ERR_OPEN:
+            return "ump_strerr: open error";
+
+        case UMP_ERR_CLOSE:
+            return "ump_strerr: close error";
+
+        case UMP_ERR_IO:
+            return "ump_strerr: io error";
+
+        case UMP_ERR_DECODEONLY:
+            return "ump_strerr: decode only";
+
+        case UMP_ERR_INVALID_ARG:
+            return "ump_strerr: invalid argument";
+
+        case UMP_ERR_INVALID_TYPE:
+            return "ump_strerr: invalid type";
+
+        case UMP_ERR_INVALID_STREAM:
+            return "ump_strerr: invalid stream";
+
+        case UMP_ERR_INVALID_MEMOP:
+            return "ump_strerr: invalid memory operation";
+
+        case UMP_ERR_INVALID_HANDLE:
+            return "ump_strerr: invalid handle";
+
         default:
             return "ump_strerr: unhadled error";
     }

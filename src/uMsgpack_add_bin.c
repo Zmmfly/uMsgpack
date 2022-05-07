@@ -3,16 +3,10 @@
 
 int ump_add_bin8(ump_handle_t hd, const void* val, uint8_t len)
 {
-    ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_b8;
+    ump_err err  = UMP_ERR_INVALID_ARG;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
-        if (val == NULL || len == 0) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (val == NULL || len == 0) break;
 
         err = ump_st_req(hd, 2+len);
         if (err != UMP_EOK) break;
@@ -32,16 +26,10 @@ int ump_add_bin8(ump_handle_t hd, const void* val, uint8_t len)
 int ump_add_bin16(ump_handle_t hd, const void* val, uint16_t len)
 {
     uint8_t be[2];
-    ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_b16;
+    ump_err err  = UMP_ERR_INVALID_ARG;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
-        if (val == NULL || len == 0) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (val == NULL || len == 0) break;
 
         err = ump_st_req(hd, 3 + len);
         if (err != UMP_EOK) break;
@@ -62,16 +50,10 @@ int ump_add_bin16(ump_handle_t hd, const void* val, uint16_t len)
 int ump_add_bin32(ump_handle_t hd, const void* val, uint32_t len)
 {
     uint8_t be[4];
-    ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_b32;
+    ump_err err  = UMP_ERR_INVALID_ARG;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
-        if (val == NULL || len == 0) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (val == NULL || len == 0) break;
 
         err = ump_st_req(hd, 5+len);
         if (err != UMP_EOK) break;
@@ -93,16 +75,10 @@ int ump_add_bin32(ump_handle_t hd, const void* val, uint32_t len)
 
 int ump_add_ext8(ump_handle_t hd, const void* val, uint8_t len, uint8_t type)
 {
-    ump_err err   = UMP_FAIL;
     uint8_t mtype = ump_type_e8;
+    ump_err err   = UMP_ERR_INVALID_ARG;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
-        if (val == NULL || len == 0) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (val == NULL || len == 0) break;
 
         err = ump_st_req(hd, 3+len);
         if (err != UMP_EOK) break;
@@ -124,16 +100,10 @@ int ump_add_ext8(ump_handle_t hd, const void* val, uint8_t len, uint8_t type)
 int ump_add_ext16(ump_handle_t hd, const void* val, uint16_t len, uint8_t type)
 {
     uint8_t be[2];
-    ump_err err   = UMP_FAIL;
     uint8_t mtype = ump_type_e16;
+    ump_err err   = UMP_ERR_INVALID_ARG;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
-        if (val == NULL || len == 0) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (val == NULL || len == 0) break;
 
         err = ump_st_req(hd, 4+len);
         if (err != UMP_EOK) break;
@@ -157,16 +127,10 @@ int ump_add_ext16(ump_handle_t hd, const void* val, uint16_t len, uint8_t type)
 int ump_add_ext32(ump_handle_t hd, const void* val, uint32_t len, uint8_t type)
 {
     uint8_t be[4];
-    ump_err err   = UMP_FAIL;
     uint8_t mtype = ump_type_e32;
+    ump_err err   = UMP_ERR_INVALID_ARG;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
-        if (val == NULL || len == 0) {
-            err = UMP_ERR_INVALID_ARG;
-            break;
-        }
+        if (val == NULL || len == 0) break;
 
         err = ump_st_req(hd, 6+len);
         if (err != UMP_EOK) break;

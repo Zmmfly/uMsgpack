@@ -15,57 +15,6 @@ int ump_check_handle(ump_handle_t hd)
 }
 
 /**
- * @brief ump open stream.
- * 
- * @param hd 
- * @return int 
- */
-int ump_st_open(ump_handle_t hd)
-{
-    int ret = ump_check_handle(hd);
-    if (ret != UMP_EOK) return ret;
-    ret = UMP_FAIL;
-    do{
-        ret = hd->stream->fn(hd->stream, UMP_OP_OPEN, NULL);
-    }while(0);
-    return ret;
-}
-
-/**
- * @brief ump stream done.
- * 
- * @param hd 
- * @return int 
- */
-int ump_st_done(ump_handle_t hd)
-{
-    int ret = ump_check_handle(hd);
-    if (ret != UMP_EOK) return ret;
-    ret = UMP_FAIL;
-    do{
-        ret = hd->stream->fn(hd->stream, UMP_OP_DONE, NULL);
-    }while(0);
-    return ret;
-}
-
-/**
- * @brief ump close stream.
- * 
- * @param hd 
- * @return int 
- */
-int ump_st_close(ump_handle_t hd)
-{
-    int ret = ump_check_handle(hd);
-    if (ret != UMP_EOK) return ret;
-    ret = UMP_FAIL;
-    do{
-        ret = hd->stream->fn(hd->stream, UMP_OP_CLOSE, NULL);
-    }while(0);
-    return ret;
-}
-
-/**
  * @brief ump read data from stream.
  * 
  * @param hd 

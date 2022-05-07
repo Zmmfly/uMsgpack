@@ -3,19 +3,13 @@
 
 int ump_add_pfixint(ump_handle_t hd, uint8_t val)
 {
-    ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_pfint;
+    ump_err err  = UMP_ERR_RANGEOVF;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
+        if (val > 127) break;
 
         err = ump_st_req(hd, 1);
         if (err != UMP_EOK) break;
-
-        if (val > 127) {
-            err = UMP_ERR_RANGEOVF;
-            break;
-        }
 
         type |= val;
         
@@ -35,9 +29,6 @@ int ump_add_f32(ump_handle_t hd, float val)
     uint8_t type = ump_type_f32;
 
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 5);
         if (err != UMP_EOK) break;
 
@@ -66,9 +57,6 @@ int ump_add_f64(ump_handle_t hd, double val)
     uint8_t type = ump_type_f64;
 
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 9);
         if (err != UMP_EOK) break;
 
@@ -95,9 +83,6 @@ int ump_add_u8(ump_handle_t hd, uint8_t val)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_u8;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 2);
         if (err != UMP_EOK) break;
 
@@ -115,9 +100,6 @@ int ump_add_u16(ump_handle_t hd, uint16_t val)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_u16;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 3);
         if (err != UMP_EOK) break;
 
@@ -138,9 +120,6 @@ int ump_add_u32(ump_handle_t hd, uint32_t val)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_u32;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 5);
         if (err != UMP_EOK) break;
 
@@ -163,9 +142,6 @@ int ump_add_u64(ump_handle_t hd, uint64_t val)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_u64;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 9);
         if (err != UMP_EOK) break;
 
@@ -191,9 +167,6 @@ int ump_add_i8(ump_handle_t hd, int8_t val)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_i8;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 2);
         if (err != UMP_EOK) break;
 
@@ -215,9 +188,6 @@ int ump_add_i16(ump_handle_t hd, int16_t val)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_i16;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 3);
         if (err != UMP_EOK) break;
 
@@ -243,9 +213,6 @@ int ump_add_i32(ump_handle_t hd, int32_t val)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_i32;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 5);
         if (err != UMP_EOK) break;
 
@@ -273,9 +240,6 @@ int ump_add_i64(ump_handle_t hd, int64_t val)
     ump_err err  = UMP_FAIL;
     uint8_t type = ump_type_i64;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
         err = ump_st_req(hd, 9);
         if (err != UMP_EOK) break;
 
@@ -300,15 +264,9 @@ int ump_add_i64(ump_handle_t hd, int64_t val)
 int ump_add_nfixint(ump_handle_t hd, int8_t val)
 {
     uint8_t type = ump_type_nfint;
-    ump_err err  = UMP_FAIL;
+    ump_err err  = UMP_ERR_RANGEOVF;
     do{
-        err = ump_check_handle(hd);
-        if (err != UMP_EOK) break;
-
-        if (val > 15 || val < -16) {
-            err = UMP_ERR_RANGEOVF;
-            break;
-        }
+        if (val > 15 || val < -16) break;
 
         err = ump_st_req(hd, 1);
         if (err != UMP_EOK) break;
