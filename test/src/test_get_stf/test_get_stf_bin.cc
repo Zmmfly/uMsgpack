@@ -23,7 +23,7 @@ tgstf_def(bin8)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, &len);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -35,12 +35,12 @@ tgstf_def(bin8)
             break;
         }
 
-        err = ump_get_bin8(hd, nullptr, &len);
-        if (err != UMP_EOK) {
-            msg = "ump_get_str8 len failed: ";
-            msg += ump_strerr(err);
-            break;
-        }
+        // err = ump_get_bin8(hd, nullptr, &len);
+        // if (err != UMP_EOK) {
+        //     msg = "ump_get_str8 len failed: ";
+        //     msg += ump_strerr(err);
+        //     break;
+        // }
 
         if (len != 0xf) {
             msg = "ump_get_bin8 len error: ";
@@ -88,7 +88,7 @@ tgstf_def(bin16)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, &len);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -100,12 +100,12 @@ tgstf_def(bin16)
             break;
         }
 
-        err = ump_get_bin16(hd, nullptr, &len);
-        if (err != UMP_EOK) {
-            msg = "ump_get_bin16 len failed: ";
-            msg += ump_strerr(err);
-            break;
-        }
+        // err = ump_get_bin16(hd, nullptr, &len);
+        // if (err != UMP_EOK) {
+        //     msg = "ump_get_bin16 len failed: ";
+        //     msg += ump_strerr(err);
+        //     break;
+        // }
 
         if (len != 0xf) {
             msg = "ump_get_bin16 len error: ";
@@ -153,7 +153,7 @@ tgstf_def(bin32)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, &len);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -165,12 +165,12 @@ tgstf_def(bin32)
             break;
         }
 
-        err = ump_get_bin32(hd, nullptr, &len);
-        if (err != UMP_EOK) {
-            msg = "ump_get_bin32 len failed: ";
-            msg += ump_strerr(err);
-            break;
-        }
+        // err = ump_get_bin32(hd, nullptr, &len);
+        // if (err != UMP_EOK) {
+        //     msg = "ump_get_bin32 len failed: ";
+        //     msg += ump_strerr(err);
+        //     break;
+        // }
 
         if (len != 0xf) {
             msg = "ump_get_bin32 len error: ";
@@ -220,7 +220,7 @@ tgstf_def(ext8)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -291,7 +291,7 @@ tgstf_def(ext16)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -362,7 +362,7 @@ tgstf_def(ext32)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);

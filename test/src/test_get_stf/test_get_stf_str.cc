@@ -23,7 +23,7 @@ tgstf_def(fixstr)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, &len);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -36,12 +36,12 @@ tgstf_def(fixstr)
             break;
         }
 
-        err = ump_get_fixstr(hd, nullptr, &len);
-        if (err != UMP_EOK) {
-            msg = "ump_get_fstr len failed: ";
-            msg += ump_strerr(err);
-            break;
-        }
+        // err = ump_get_fixstr(hd, nullptr, &len);
+        // if (err != UMP_EOK) {
+        //     msg = "ump_get_fstr len failed: ";
+        //     msg += ump_strerr(err);
+        //     break;
+        // }
 
         if (len != 0xf) {
             msg = "ump_get_fixstr len error: ";
@@ -89,7 +89,7 @@ tgstf_def(str8)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, &len);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -101,12 +101,12 @@ tgstf_def(str8)
             break;
         }
 
-        err = ump_get_str8(hd, nullptr, &len);
-        if (err != UMP_EOK) {
-            msg = "ump_get_str8 len failed: ";
-            msg += ump_strerr(err);
-            break;
-        }
+        // err = ump_get_str8(hd, nullptr, &len);
+        // if (err != UMP_EOK) {
+        //     msg = "ump_get_str8 len failed: ";
+        //     msg += ump_strerr(err);
+        //     break;
+        // }
 
         if (len != 0xf) {
             msg = "ump_get_str8 len error";
@@ -153,7 +153,7 @@ tgstf_def(str16)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, &len);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -165,12 +165,12 @@ tgstf_def(str16)
             break;
         }
 
-        err = ump_get_str16(hd, nullptr, &len);
-        if (err != UMP_EOK) {
-            msg = "ump_get_str16 len failed: ";
-            msg += ump_strerr(err);
-            break;
-        }
+        // err = ump_get_str16(hd, nullptr, &len);
+        // if (err != UMP_EOK) {
+        //     msg = "ump_get_str16 len failed: ";
+        //     msg += ump_strerr(err);
+        //     break;
+        // }
 
         if (len != 0xf) {
             msg = "ump_get_str16 len error";
@@ -217,7 +217,7 @@ tgstf_def(str32)
         }
 
         //do something
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, &len);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -229,12 +229,12 @@ tgstf_def(str32)
             break;
         }
 
-        err = ump_get_str32(hd, nullptr, &len);
-        if (err != UMP_EOK) {
-            msg = "ump_get_str32 len failed: ";
-            msg += ump_strerr(err);
-            break;
-        }
+        // err = ump_get_str32(hd, nullptr, &len);
+        // if (err != UMP_EOK) {
+        //     msg = "ump_get_str32 len failed: ";
+        //     msg += ump_strerr(err);
+        //     break;
+        // }
 
         if (len != 0xf) {
             msg = "ump_get_str32 len error";

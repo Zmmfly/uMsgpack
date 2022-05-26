@@ -18,7 +18,7 @@ tgstf_def(pfixint)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -43,7 +43,7 @@ tgstf_def(pfixint)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next should not be failed";
             break;
@@ -62,7 +62,7 @@ tgstf_def(pfixint)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err == UMP_EOK) {
             msg = "ump next should be eof";
             break;
@@ -89,7 +89,7 @@ tgstf_def(nfixint)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -114,7 +114,7 @@ tgstf_def(nfixint)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next should not be failed";
             break;
@@ -133,7 +133,7 @@ tgstf_def(nfixint)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err == UMP_EOK) {
             msg = "ump next should be eof";
             break;
@@ -160,7 +160,7 @@ tgstf_def(f32)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -209,7 +209,7 @@ tgstf_def(f64)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -261,7 +261,7 @@ tgstf_def(u8)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -308,7 +308,7 @@ tgstf_def(u16)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -355,7 +355,7 @@ tgstf_def(u32)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -402,7 +402,7 @@ tgstf_def(u64)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -449,7 +449,7 @@ tgstf_def(i8)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -497,7 +497,7 @@ tgstf_def(i16)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -544,7 +544,7 @@ tgstf_def(i32)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);
@@ -591,7 +591,7 @@ tgstf_def(i64)
             break;
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump next failed: ";
             msg += std::to_string(err);

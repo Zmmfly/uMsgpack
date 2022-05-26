@@ -26,9 +26,10 @@ int ump_init(ump_handle_t hd, ump_stream_t st);
  * 
  * @param hd uMsgpack handle
  * @param type out param, type of msgpack object
+ * @param size if type is str or bin or ext, this will be the size of the object
  * @return int UMP_ERR_*
  */
-int ump_next(ump_handle_t hd, ump_type_t type);
+int ump_next(ump_handle_t hd, ump_type_t type, uint32_t *size);
 
 /**
  * @brief Convert ump error code to string

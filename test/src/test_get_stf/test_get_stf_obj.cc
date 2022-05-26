@@ -19,7 +19,7 @@ tgstf_def(fixmap)
 
         //do something
         // fixmap
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -70,7 +70,7 @@ tgstf_def(fixarr)
 
         //do something
         // fixarr
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -120,7 +120,7 @@ tgstf_def(nil)
 
         //do something
         // nil
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -165,7 +165,7 @@ tgstf_def(false)
 
         //do something
         // false
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -215,7 +215,7 @@ tgstf_def(true)
 
         //do something
         // true
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -266,7 +266,7 @@ tgstf_def(fixext1)
 
         //do something
         // fixext1
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -322,7 +322,7 @@ tgstf_def(fixext2)
 
         //do something
         // fixext2
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -378,7 +378,7 @@ tgstf_def(fixext4)
 
         //do something
         // fixext4
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -434,7 +434,7 @@ tgstf_def(fixext8)
 
         //do something
         // fixext8
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -493,7 +493,7 @@ tgstf_def(fixext16)
 
         //do something
         // fixext16
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -551,7 +551,7 @@ tgstf_def(arr16)
 
         //do something
         // arr16
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -600,7 +600,7 @@ tgstf_def(arr32)
 
         //do something
         // arr32
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -649,7 +649,7 @@ tgstf_def(map16)
 
         //do something
         // map16
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);
@@ -698,7 +698,7 @@ tgstf_def(map32)
 
         //do something
         // map32
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOK) {
             msg = "ump_next failed: ";
             msg += ump_strerr(err);

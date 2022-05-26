@@ -137,7 +137,7 @@ tmix_def(multi_miniunit)
         //do something
         for (size_t i=0; i<sizeof(msgpack_type_seq)/sizeof(ump_type); i++)
         {
-            err = ump_next(hd, &type);
+            err = ump_next(hd, &type, NULL);
             if (err != UMP_EOK) {
                 msg = "No.";
                 msg += std::to_string(i);
@@ -157,7 +157,7 @@ tmix_def(multi_miniunit)
             }
         }
 
-        err = ump_next(hd, &type);
+        err = ump_next(hd, &type, NULL);
         if (err != UMP_EOF || err == UMP_EOK) {
             msg = "ump_next end error: ";
             msg += ump_strerr(err);
